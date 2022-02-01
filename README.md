@@ -11,3 +11,18 @@
 그림은 계속 추가될 것.
 
 
+# 사용한 기술, 환경
+
+환경 : mac + AWS EC2(free tier)
+
+언어 : js, python, java
+
+핵심 라이브러리, 프레임워크 : vue.js, Spring + boot, Requests, beautifulsoup, Selenium
+
+DB : Redis
+
+API : FTXAPI(코인 시세정보), 한국수출입은행(환율정보)
+
+CI/CD 구축
+
+
