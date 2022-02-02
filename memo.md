@@ -155,5 +155,20 @@ EC2환경에서 자바설치.
 
 swap memory를 통해 해결할 수 있다지만, 그냥 gitactions을 사용하기로 정함. 이것도 터지면 swap을 사용해야할 듯
 
+### Jenkins 폐기 git actions 사용
+
+git action을 사용하는데, 일단 working-directory설정에 삽질을 함. 경로에 오타가 있어서..
+
+local에 배포하는건 성공. 이제 이것을 AWS 서버에 옮기는 작업을 해야한다.
+
+성공.
+
+![](img/awsS3result.png)  
+
+이제 EC2에 배포를 해야한다.
+
+
+
+
 
 
