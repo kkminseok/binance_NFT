@@ -1,0 +1,16 @@
+{
+  "name": "nftjava",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "list": "^2.0.19",
+    "npm": "^8.3.2",
+    "vue": "^2.6.14"
+  }
+}

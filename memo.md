@@ -143,3 +143,17 @@ Host kms
 AWS EC2에서 지정한 User를 써야 식별이 가능하다. 나같은 경우 us-ec2인가 이렇게 되어 있어서 이렇게 수정해주었다.
 
 
+그 다음은 bucket을 만들고 IAM을 등록.
+
+
+EC2환경에서 자바설치.
+
+
+### Jenkins 사용
+
+실패. AWS의 EC2, t2.micro는 메모리가 1GB라서 Jenkins 빌드 중에 터지는 에러가 발생.
+
+swap memory를 통해 해결할 수 있다지만, 그냥 gitactions을 사용하기로 정함. 이것도 터지면 swap을 사용해야할 듯
+
+
+
