@@ -60,7 +60,6 @@ jobs:
         AWS_REGION: ap-northeast-2
       run: |
         aws s3 cp \
-        --region ap-northeast-2 \
         --acl private \ 
         ./springboot-intro-build.zip s3://springboot-intro-build/
       working-directory: ${{env.working-directory}}
