@@ -67,11 +67,7 @@ jobs:
       run: cp appspec.yml ./deploy
       working-directory: ${{env.working-directory}}
       
-      
-                aws deploy create-deployment \
-            --application-name codedeploy-from-s3 \
-            --deployment-group-name codedeploy-from-s3 \
-            --s3-location bucket=${{ secrets.AWS_S3_BUCKET_NAME }},key=community-build/buildF
+ 
     - name: CodeDeploy
       run: aws deploy create-deployment \
         --application-name coinapp \
