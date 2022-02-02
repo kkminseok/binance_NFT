@@ -48,7 +48,7 @@ jobs:
 
     # 압축파일 형태로 전달
     - name: Make zip file
-      run: zip -r -qq -j ./springboot-intro-build.zip ./deploy
+      run: zip -r -qq -j ./coinserver.zip ./deploy
       working-directory: ${{env.working-directory}}
       
     # S3 Bucket으로 copy
@@ -59,5 +59,5 @@ jobs:
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_IAM_MANAGER_SECRET_ACCESS_KEY }}
         AWS_REGION: ap-northeast-2
       run: |
-        aws s3 cp --region ap-northeast-2 --acl private ./springboot-intro-build.zip s3://$AWS_S3_BUCKET
+        aws s3 cp --region ap-northeast-2 --acl private ./coinserver.zip s3://$AWS_S3_BUCKET
       working-directory: ${{env.working-directory}}
