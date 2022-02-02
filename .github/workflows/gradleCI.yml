@@ -69,9 +69,10 @@ jobs:
       
  
     - name: CodeDeploy
-      run: aws deploy create-deployment \
-        --application-name coinapp \
-        --deployment-group-name coin-deploy-group \
-        --s3-location bucket=kmscoinbucket,key=coinserver.zip,bundleType=zip \
-        --region ap-northeast-2
+      run: |
+        aws deploy create-deployment \
+          --application-name coinapp \
+          --deployment-group-name coin-deploy-group \
+          --s3-location bucket=kmscoinbucket,key=coinserver.zip,bundleType=zip \
+          --region ap-northeast-2
       working-directory: ${{env.working-directory}}
