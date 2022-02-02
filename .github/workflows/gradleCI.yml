@@ -66,3 +66,6 @@ jobs:
     - name: Copy appspec.yml
       run: cp appspec.yml ./deploy
       working-directory: ${{env.working-directory}}
+      
+    - name: CodeDeploy
+      run: aws deploy create-deployment --application-name coinapp --deployment-group-name coin-deploy-group --s3-location bucket=$AWS_S3_BUCKET,key=coinserver.zip,bundleType=zip
