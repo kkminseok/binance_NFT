@@ -61,3 +61,8 @@ jobs:
       run: |
         aws s3 cp --region ap-northeast-2 --acl private ./coinserver.zip s3://$AWS_S3_BUCKET
       working-directory: ${{env.working-directory}}
+      
+    # appspec.yml 파일 복사
+    - name: Copy appspec.yml
+      run: cp appspec.yml ./deploy
+      working-directory: ${{env.working-directory}}
