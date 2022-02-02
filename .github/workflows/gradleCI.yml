@@ -27,7 +27,7 @@ jobs:
         distribution: 'temurin'
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
-      working-directory: ./server/NETJAVA
+      working-directory: server/NETJAVA
     - name: Build with Gradle
       run: gradlew build
-      working-directory: ./server/NETJAVA
+      working-directory: server/NETJAVA
