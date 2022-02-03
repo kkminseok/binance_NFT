@@ -167,8 +167,22 @@ local에 배포하는건 성공. 이제 이것을 AWS 서버에 옮기는 작업
 
 이제 EC2에 배포를 해야한다.
 
+ㅠㅠ 삽질을 ㅈ빠지게 했다.
+
+![](img/deploy.png)
+
+수많은 배포실패의 흔적..
+
+내가 겪은 에러는 다음과 같은데..
+
+>The deployment failed because no instances were found for your deployment group. Check your deployment group settings to make sure the tags for your Amazon EC2 instances or Auto Scaling groups correctly identify the instances you want to deploy to, and then try again.
 
 
+글이 길어지므로 이 해결과정은 내 개인블로그에 적었다.
 
+<https://kkminseok.github.io>
 
+참고 문헌
+
+<https://stalker5217.netlify.app/devops/github-action-aws-ci-cd-3/>
 
