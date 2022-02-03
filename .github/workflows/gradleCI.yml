@@ -66,7 +66,7 @@ jobs:
       run: cp appspec.yml ./deploy
       working-directory: ${{env.working-directory}}
       
-      
+    # 배포
     - name: CodeDeploy
       env:
         AWS_S3_BUCKET: ${{secrets.AWS_PRODUCTION_BUCKET_NAME}}
