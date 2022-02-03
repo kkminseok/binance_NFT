@@ -81,5 +81,3 @@ jobs:
           --region ap-northeast-2
       working-directory: ${{env.working-directory}}
  
- 
-
