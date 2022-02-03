@@ -180,7 +180,7 @@ local에 배포하는건 성공. 이제 이것을 AWS 서버에 옮기는 작업
 
 글이 길어지므로 이 해결과정은 내 개인블로그에 적었다.
 
-<https://kkminseok.github.io>
+<https://kkminseok.github.io/posts/awsdeploy/>
 
 참고 문헌
 
