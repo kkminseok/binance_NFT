@@ -67,16 +67,4 @@ jobs:
       working-directory: ${{env.working-directory}}
       
  
-    - name: CodeDeploy
-      env:
-        AWS_S3_BUCKET: ${{secrets.AWS_PRODUCTION_BUCKET_NAME}}
-        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_IAM_MANAGER_KEY_ID }}
-        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_IAM_MANAGER_SECRET_ACCESS_KEY }}
-        AWS_REGION: ap-northeast-2
-      run: |
-        aws deploy create-deployment \
-          --application-name coinapp \
-          --deployment-group-name coin-deploy-group \
-          --s3-location bucket=kmscoinbucket,key=coinserver.zip,bundleType=zip \
-          --region ap-northeast-2
-      working-directory: ${{env.working-directory}}
+
