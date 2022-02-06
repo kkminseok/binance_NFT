@@ -12,6 +12,8 @@ on:
     branches: [ main ]
   pull_request:
     branches: [ main ]
+    paths:
+      - "**.java"
 
 jobs:
   build:
@@ -48,7 +50,6 @@ jobs:
     # appspec.yml 파일 복사
     - name: Copy appspec.yml
       run: cp appspec.yml ./deploy
-      working-directory: ${{env.working-directory}}
       
     # deploy.sh 파일 복사
     - name: Copy deploy.sh

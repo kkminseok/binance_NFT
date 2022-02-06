@@ -5,6 +5,8 @@ on:
     branches: [ main ]
   pull_request:
     branches: [ main ]
+    paths:
+      - "**.py"
 
 jobs:
   build:
@@ -30,7 +32,7 @@ jobs:
       
     # appspec.yml 파일 복사
     - name: Copy appspec.yml
-      run: cp ./pycode/appspec.yml ./pydeploy
+      run: cp appspec.yml ./pydeploy
 
       
     # 압축파일 형태로 전달
@@ -60,6 +62,6 @@ jobs:
         aws deploy create-deployment \
           --application-name coinapp \
           --deployment-group-name coin-deploy-group \
-          --s3-location bucket=kmscoinbucket,key=pythonserver.zip,bundleType=zip \
+          --s3-location bucket=$AWS_S3_BUCKET,key=pythonserver.zip,bundleType=zip \
           --region ap-northeast-2
  
