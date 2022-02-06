@@ -23,6 +23,8 @@ jobs:
     - name: Copy python file
       run: cp ./pycode/main.py ./pydeploy
       
+           
+      
     # S3 Bucket으로 copy
     - name: Deliver to AWS S3
       env:
@@ -31,7 +33,7 @@ jobs:
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_IAM_MANAGER_SECRET_ACCESS_KEY }}
         AWS_REGION: ap-northeast-2
       run: |
-        aws s3 cp --region ap-northeast-2 --acl private ./pythonserver.zip s3://$AWS_S3_BUCKET
+        aws s3 cp --region ap-northeast-2 --acl private ./main.py s3://$AWS_S3_BUCKET
 
       
       
@@ -45,6 +47,6 @@ jobs:
         aws deploy create-deployment \
           --application-name coinapp \
           --deployment-group-name coin-deploy-group \
-          --s3-location bucket=kmscoinbucket,key=pythonserver.zip,bundleType=zip \
+          --s3-location bucket=kmscoinbucket,key=main.py \
           --region ap-northeast-2
  
