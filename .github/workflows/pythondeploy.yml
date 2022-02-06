@@ -19,9 +19,14 @@ jobs:
       run: mkdir pydeploy
       
       
-    # test python 파일 넘기기
+    # main python 파일 넘기기
     - name: Copy python file
       run: cp ./pycode/main.py ./pydeploy
+      
+    # crolling py 넘기기
+    
+    - name: Copy crolling file 
+      run: cp ./pycode/crolling.py ./pydeploy
       
     # 압축파일 형태로 전달
     - name: Make zip file
