@@ -16,12 +16,12 @@ jobs:
       
       # 전송할 파일을 담을 디렉토리 생성
     - name: Make Directory for deliver
-      run: mkdir pycode
+      run: mkdir pydeploy
       
       
     # test python 파일 넘기기
     - name: Copy python file
-      run: cp ./pycode/main.py ./pycode
+      run: cp ./pycode/main.py ./pydeploy
       
     # S3 Bucket으로 copy
     - name: Deliver to AWS S3
@@ -31,8 +31,8 @@ jobs:
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_IAM_MANAGER_SECRET_ACCESS_KEY }}
         AWS_REGION: ap-northeast-2
       run: |
-        aws s3 cp --region ap-northeast-2 --acl private ./coinserver.zip s3://$AWS_S3_BUCKET
-      working-directory: ${{env.working-directory}}
+        aws s3 cp --region ap-northeast-2 --acl private ./pythonserver.zip s3://$AWS_S3_BUCKET
+
       
       
     # 배포
@@ -47,5 +47,4 @@ jobs:
           --deployment-group-name coin-deploy-group \
           --s3-location bucket=kmscoinbucket,key=pythonserver.zip,bundleType=zip \
           --region ap-northeast-2
-      working-directory: ${{env.working-directory}}
  
