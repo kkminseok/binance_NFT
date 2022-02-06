@@ -28,7 +28,7 @@ jobs:
     # crolling py 넘기기
     
     - name: Copy crolling file 
-      run: cp ./pycode/crolling.py ./pydeploy
+      run: cp ./pycode/crawl.py ./pydeploy
       
     # appspec.yml 파일 복사
     - name: Copy appspec.yml
