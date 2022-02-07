@@ -5,8 +5,14 @@ files:
     destination: /home/ubuntu/app
     overwrite: yes
 
+permissions:
+  - object: /
+    pattern: "**"
+    owner: ubuntu
+    group: ubuntu
+
 hooks:
-  AfterInstall:
+  ApplicationStart:
     - location: deploy.sh
       timeout: 60
-      runas: root
+      runas: ubuntu
