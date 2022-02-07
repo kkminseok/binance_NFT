@@ -59,6 +59,9 @@ jobs:
       run: cp deploy.sh ./deploy
       working-directory: ${{env.working-directory}}      
       
+    - name: ls test
+      run: ls -alR
+      
     # main python 파일 넘기기
     - name: Copy python file
       run: cp main.py ${{env.working-directory}}/deploy
