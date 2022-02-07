@@ -52,9 +52,9 @@ jobs:
       run: cp appspec.yml ./deploy
       
     # deploy.sh 파일 복사
-    - name: Copy deploy.sh
-      run: cp deploy.sh ./deploy
-      working-directory: ${{env.working-directory}}
+    # - name: Copy deploy.sh
+    #  run: cp deploy.sh ./deploy
+    # working-directory: ${{env.working-directory}}
 
     # 압축파일 형태로 전달
     - name: Make zip file
