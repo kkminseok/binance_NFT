@@ -2,6 +2,6 @@ version: 0.0
 os: linux
 files:
   - source: /
-    destination: /home/ubuntu/app
+    destination: /home/ubuntu/app/pycode
     overwrite: yes
 
