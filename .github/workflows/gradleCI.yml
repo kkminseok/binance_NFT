@@ -70,6 +70,7 @@ jobs:
       run: cp crawl.py ./deploy
       working-directory: ${{env.pythonworking-directory}}
       
+    - uses: actions/checkout@v2
     - name: ls deploy
       run: ls -al /deploy
 
