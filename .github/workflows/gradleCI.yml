@@ -64,14 +64,14 @@ jobs:
       
     # main python 파일 넘기기
     - name: Copy python file
-      run: cp main.py ${{env.working-directory}}/deploy
-      working-directory: ${{env.pythonworking-directory}}
+      run: cp /pycode/main.py ./deploy
+      working-directory: ${{env.working-directory}}
       
     # crawl py 넘기기
     
     - name: Copy crawl file 
-      run: cp crawl.py ${{env.working-directory}}/deploy
-      working-directory: ${{env.pythonworking-directory}}
+      run: cp pycode/crawl.py ./deploy
+      working-directory: ${{env.working-directory}}
       
 
     # 압축파일 형태로 전달
