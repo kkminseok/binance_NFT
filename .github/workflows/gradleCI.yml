@@ -23,6 +23,7 @@ jobs:
     
     env: 
       working-directory: ./server/NFTJAVA
+      pythonworking-directory: ./pycode
 
     steps:
     - uses: actions/checkout@v2
@@ -61,16 +62,13 @@ jobs:
     # main python 파일 넘기기
     - name: Copy python file
       run: cp ./pycode/main.py ./deploy
+      working-directory: ${{env.pythonworking-directory}}
       
     # crawl py 넘기기
     
     - name: Copy crawl file 
       run: cp ./pycode/crawl.py ./deploy
-    
-    # 확인
-    - name: test
-      run: cat ./deploy/main.py
-          
+      working-directory: ${{env.pythonworking-directory}}
 
     # 압축파일 형태로 전달
     - name: Make zip file
