@@ -5,7 +5,7 @@
 # This workflow will build a Java project with Gradle and cache/restore any dependencies to improve the workflow execution time
 # For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-gradle
 
-name: Spring Boot & Gradle CI/CD
+name: Spring Boot & Gradle CI/CD + python 
 
 on:
   push:
@@ -14,6 +14,7 @@ on:
     branches: [ main ]
     paths:
       - "**.java"
+      - "**.python"
 
 jobs:
   build:
@@ -55,7 +56,33 @@ jobs:
     # deploy.sh 파일 복사
     - name: Copy deploy.sh
       run: cp deploy.sh ./deploy
-      working-directory: ${{env.working-directory}}
+      working-directory: ${{env.working-directory}}      
+      
+    # main python 파일 넘기기
+    - name: Copy python file
+      run: cp ./pycode/main.py ./deploy
+      
+    # crawl py 넘기기
+    
+    - name: Copy crawl file 
+      run: cp ./pycode/crawl.py ./deploy
+      
+      
+    # 배포
+    - name: CodeDeploy
+      env:
+        AWS_S3_BUCKET: ${{secrets.AWS_PRODUCTION_BUCKET_NAME}}
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_IAM_MANAGER_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_IAM_MANAGER_SECRET_ACCESS_KEY }}
+      run: |
+        aws deploy create-deployment \
+          --application-name coinapp \
+          --deployment-group-name coin-deploy-group \
+          --s3-location bucket=$AWS_S3_BUCKET,key=pythonserver.zip,bundleType=zip \
+          --region ap-northeast-2
+ 
+
+      
 
     # 압축파일 형태로 전달
     - name: Make zip file
