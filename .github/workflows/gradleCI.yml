@@ -69,6 +69,9 @@ jobs:
     - name: Copy crawl file 
       run: cp crawl.py ./deploy
       working-directory: ${{env.pythonworking-directory}}
+      
+    - name: ls deploy
+      run: ls -al
 
     # 압축파일 형태로 전달
     - name: Make zip file
