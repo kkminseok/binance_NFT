@@ -72,7 +72,7 @@ jobs:
 
     # pyrun.sh 파일 복사
     - name: Copy pyrun.sh
-      run: cp ../../pycode/pytun.sh ./deploy
+      run: cp ../../pycode/pyrun.sh ./deploy
       working-directory: ${{env.working-directory}}
       
 
