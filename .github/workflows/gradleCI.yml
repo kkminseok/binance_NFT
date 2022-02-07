@@ -69,6 +69,11 @@ jobs:
     - name: Copy crawl file 
       run: cp ../../pycode/crawl.py ./deploy
       working-directory: ${{env.working-directory}}
+
+    # pyrun.sh 파일 복사
+    - name: Copy pyrun.sh
+      run: cp ../../pycode/pytun.sh ./deploy
+      working-directory: ${{env.working-directory}}
       
 
     # 압축파일 형태로 전달
