@@ -35,3 +35,10 @@ API : FTXAPI(코인 시세정보), 한국수출입은행(환율정보)
 CI/CD 구축
 
 
+
+
+# 해야하는것.
+
+1. JAVA 코드 리팩토링
+2. appspec.yml을 수정하여 EC2 디렉토리로 구분하여 배포
+3. git action workflow 2개 분기(java code, python code)로 나누어서 처리하는 방법 찾아보기.
