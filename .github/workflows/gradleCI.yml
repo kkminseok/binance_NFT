@@ -22,8 +22,8 @@ jobs:
     runs-on: ubuntu-18.04
     
     env: 
-      working-directory: /server/NFTJAVA
-      pythonworking-directory: /pycode
+      working-directory: ./server/NFTJAVA
+      pythonworking-directory: ./pycode
 
     steps:
     - uses: actions/checkout@v2
@@ -61,13 +61,13 @@ jobs:
       
     # main python 파일 넘기기
     - name: Copy python file
-      run: cp main.py $working-directory/deploy
+      run: cp main.py $env.working-directory/deploy
       working-directory: ${{env.pythonworking-directory}}
       
     # crawl py 넘기기
     
     - name: Copy crawl file 
-      run: cp crawl.py $working-directory/deploy
+      run: cp crawl.py $env.working-directory/deploy
       working-directory: ${{env.pythonworking-directory}}
       
 
