@@ -68,10 +68,14 @@ jobs:
     - name: make py file
       run: touch apikey.py 
       working-directory: ${{env.working-directory}}
-      
+
+
     # py 작성
     - name: edit crawlkey
-      run: echo -e $DEAL_CRAW_API_KEY >> apikey.py
+      run: 'echo "$API_KEY" > key'
+      shell: bash
+      env:
+        API_KEY: ${{DEAL_CRAW_API_KEY}}      
       working-directory: ${{env.working-directory}}
 
     # 확인
