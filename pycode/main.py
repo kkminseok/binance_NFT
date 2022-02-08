@@ -1,4 +1,4 @@
-from importlib.metadata import requires
+#from importlib.metadata import requires
 import time
 import urllib.parse
 import sys
