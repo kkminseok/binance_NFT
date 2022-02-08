@@ -8,6 +8,7 @@ from requests import Request, Session, Response
 import hmac
 from ciso8601 import parse_datetime
 import requests
+import apikey
 
 
 
@@ -193,7 +194,7 @@ Sol = 'SOL/USD'
 dic ={}
 marketlist = []
 
-changeapikey = 'your key'
+changeapikey = apikey.changeapikey
 changeurl = 'https://www.koreaexim.go.kr/site/program/financial/exchangeJSON'
 
 
