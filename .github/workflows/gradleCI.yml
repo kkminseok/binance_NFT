@@ -77,6 +77,7 @@ jobs:
     # 확인
     - name: cat crawlkey
       run: cat apikey.py
+      working-directory: ${{env.working-directory}}
       
     # crwalkey파일 넘기기
     - name: Copy apikey.sh
