@@ -72,14 +72,10 @@ jobs:
 
     # py 작성
     - name: edit crawlkey
-<<<<<<< HEAD
-      run: echo -e ${{DEAL_CRAW_API_KEY}} >> apikey.py
-=======
       run: 'echo "$API_KEY" > apikey.py'
       shell: bash
       env:
         API_KEY: ${{secrets.DEAL_CRAW_API_KEY}}      
->>>>>>> b203c9c107a83e33082be1c56e22fecf848c5f6d
       working-directory: ${{env.working-directory}}
 
     # 확인
