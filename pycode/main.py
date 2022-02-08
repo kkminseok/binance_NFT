@@ -200,13 +200,11 @@ changeurl = 'https://www.koreaexim.go.kr/site/program/financial/exchangeJSON'
 
 def changekrw(atdic,soldic) :
     response = requests.get(changeurl + '?authkey=' + changeapikey + '&data=AP01')
-    print(response)
     changestr = response.text
     changestr = changestr[changestr.find('USD'):]
     deal_bas_ridx = changestr.find('deal_bas_r')
     result = changestr[deal_bas_ridx+13:(deal_bas_ridx+20)]
     result = result[:1] + result[2:]
-    print(result)
     if result != '' :
         dic['deal_bas_r'] = float(result)
         atdic['deal_bas_r'] = float(result)
@@ -218,7 +216,7 @@ def changekrw(atdic,soldic) :
 while(True) :
     atdic = f._get('markets' + '/' + Atlas)
     soldic = f._get('markets' + '/' + Sol)
-    requesturl = "http://3.35.44.58:8080/data"
+    requesturl = "http://localhost:8080/data"
     changekrw(atdic,soldic)
     #print(dic['krwinfo'])
     print(atdic)
