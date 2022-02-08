@@ -64,6 +64,21 @@ jobs:
       run: cp ../../pycode/main.py ./deploy
       working-directory: ${{env.working-directory}}
       
+    # python crawl key 작성
+    - name: make py file
+      run: touch apikey.py 
+      working-directory: ${{env.working-directory}}
+      
+    # py 작성
+    - name: edit crawlkey
+      run: echo -e $DEAL_CRAW_API_KEY >> apikey.py
+      working-directory: ${{env.working-directory}}
+      
+    # crwalkey파일 넘기기
+    - name: Copy apikey.sh
+      run: cp apikey.py ./deploy
+      working-directory: ${{env.working-directory}}          
+      
     # crawl py 넘기기
     
     - name: Copy crawl file 
