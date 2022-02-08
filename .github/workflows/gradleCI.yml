@@ -73,6 +73,10 @@ jobs:
     - name: edit crawlkey
       run: echo -e $DEAL_CRAW_API_KEY >> apikey.py
       working-directory: ${{env.working-directory}}
+
+    # 확인
+    - name: cat crawlkey
+      run: cat apikey.py
       
     # crwalkey파일 넘기기
     - name: Copy apikey.sh
