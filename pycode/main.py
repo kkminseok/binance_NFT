@@ -1,4 +1,5 @@
 #from importlib.metadata import requires
+import json
 import time
 import urllib.parse
 import sys
@@ -202,10 +203,13 @@ def changekrw(atdic,soldic) :
     response = requests.get(changeurl + '?authkey=' + changeapikey + '&data=AP01')
     changestr = response.text
     changestr = changestr[changestr.find('USD'):]
+    #print(changestr)
     deal_bas_ridx = changestr.find('deal_bas_r')
-    result = changestr[deal_bas_ridx+13:(deal_bas_ridx+20)]
-    result = result[:1] + result[2:]
+    result = changestr[deal_bas_ridx+13:(changestr.find('bkpr',deal_bas_ridx))]
+    #print(result)
+    result = result[:1] + result[2:-3]
     if result != '' :
+        print(result)
         dic['deal_bas_r'] = float(result)
         atdic['deal_bas_r'] = float(result)
         soldic['deal_bas_r'] = float(result)
