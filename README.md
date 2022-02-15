@@ -26,13 +26,20 @@
 
 언어 : js, python, java
 
-핵심 라이브러리, 프레임워크 : vue.js, Spring + boot, Requests, beautifulsoup, Selenium
+핵심 라이브러리, 프레임워크 : vue.js(vuefity), Spring + boot, Requests, beautifulsoup, Selenium
 
-DB : Redis
+- 크롤링 : python(Selenium, beautifulsoup, webdriver)
+- 서버통신 : python(Requests), Spring + boot, vue.js
+- 화면 : vue.js(vuefity)
+- 인프라 : aws EC2(micro.t2)
+- 자동화배포 : github action, aws codeDeploy
+- DB : Redis
+- API : FTXAPI(코인 시세정보), 한국수출입은행(환율정보)
 
-API : FTXAPI(코인 시세정보), 한국수출입은행(환율정보)
 
-CI/CD 구축
+
+
+
 
 
 
