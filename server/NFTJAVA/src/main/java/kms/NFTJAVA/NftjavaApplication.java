@@ -11,3 +11,12 @@ public class NftjavaApplication {
 	}
 
 }
+
+
+/*
+1. 부동산
+2. 게임
+3. BTC
+4. 주식
+5.
+ */
