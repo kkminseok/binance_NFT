@@ -9,5 +9,9 @@ spring:
     host: 127.0.0.1
     password:
 
+jwt:
+  expmin: 5
+  salt: MYSALT
+
 
 

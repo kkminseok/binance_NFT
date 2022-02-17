@@ -52,12 +52,6 @@ public class pyController {
 
     }
 
-    @PostMapping("/login")
-    public void login(@RequestBody UserDTO userdto, Model model){
-        log.info("login user = {} , {}", userdto.getUserId(),userdto.getPassword());
-    }
-
-
 
 
 }

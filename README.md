@@ -35,6 +35,7 @@
 - 자동화배포 : github action, aws codeDeploy
 - DB : Redis
 - API : FTXAPI(코인 시세정보), 한국수출입은행(환율정보)
+- 잡다 : jwt token
 
 
 
