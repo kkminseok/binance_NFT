@@ -1,9 +1,8 @@
 package kms.NFTJAVA.controller;
 
-import kms.NFTJAVA.DTO.DAO;
-import kms.NFTJAVA.DTO.NFTRedis;
-import kms.NFTJAVA.DTO.user.UserDTO;
-import kms.NFTJAVA.service.NFTservice;
+import kms.NFTJAVA.DTO.coinDTO;
+import kms.NFTJAVA.DTO.coinEntity;
+import kms.NFTJAVA.service.CoinService;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,22 +16,22 @@ import java.util.Iterator;
 @RestController
 public class pyController {
 
-    private final NFTservice nftservice;
+    private final CoinService nftservice;
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
-    public pyController(NFTservice nftservice){
+    public pyController(CoinService nftservice){
         this.nftservice = nftservice;
     }
     @GetMapping("/data")
-    public Iterable<NFTRedis> testview(Model model){
-        Iterable<NFTRedis> findallser = nftservice.findallser();
+    public Iterable<coinEntity> testview(Model model){
+        Iterable<coinEntity> findallser = nftservice.findallser();
         if(findallser != null){
 //            model.addAttribute("starDTO",nft);
-            Iterator<NFTRedis> iterator = findallser.iterator();
+            Iterator<coinEntity> iterator = findallser.iterator();
             while(iterator.hasNext()){
-                NFTRedis nftdata = iterator.next();
+                coinEntity nftdata = iterator.next();
                 log.info("nftdata : {} + {} + {} ",nftdata.getName() , nftdata.getPrice() , nftdata.getKrw());
             }
 
@@ -43,7 +42,7 @@ public class pyController {
     }
 
     @PostMapping("/data")
-    public void test(@ModelAttribute DAO data, Model model){
+    public void test(@ModelAttribute coinDTO data, Model model){
         log.info("Price = {}",data.getPrice());
         nftservice.setkrw(data);
         nftservice.savecoin(data);

@@ -1,6 +1,7 @@
 package kms.NFTJAVA.controller;
 
 import kms.NFTJAVA.DTO.user.UserDTO;
+import kms.NFTJAVA.DTO.user.UserEntity;
 import kms.NFTJAVA.jwt.JwtService;
 import kms.NFTJAVA.service.UserService;
 import lombok.extern.slf4j.Slf4j;
@@ -12,7 +13,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -33,20 +33,25 @@ public class userController {
 
     @PostMapping("/signin2")
     public void login(@RequestBody UserDTO userdto, Model model){
-        log.info("login user = {} , {}", userdto.getUserId(),userdto.getPassword());
+        log.info("login user = {} , {}", userdto.getUid(),userdto.getPassword());
     }
 
     @PostMapping("/signin")
     public ResponseEntity<Map<String,Object>> signin(@RequestBody UserDTO userDTO, HttpServletResponse res){
         Map<String,Object> resultMap = new HashMap<>();
         HttpStatus status = null;
+        //test
+        UserEntity saveduser = userService.userSave(userDTO);
+        //
 
         try{
-            UserDTO loginUser = userService.sigin(userDTO.getUserId(),userDTO.getPassword());
-            log.info("새로 만듦 id : {}, pw : {}",loginUser.getUserId(),loginUser.getPassword());
+            UserDTO loginUser = userService.sigin(saveduser);
+            log.info("새로 만듦 id : {}, pw : {}",loginUser.getUid(),loginUser.getPassword());
             //success login?
-            String token = jwtService.create(loginUser);
+            String token = jwtService.createToken(loginUser);
+            String retoken = jwtService.createRefreshToken();
             res.setHeader("jwt-auth-token",token);
+            res.setHeader("jwt-auth-refresh-token",retoken);
             resultMap.put("status",true);
             resultMap.put("data",loginUser);
             status = HttpStatus.ACCEPTED;
@@ -62,7 +67,7 @@ public class userController {
 
     @PostMapping("/info")
     public ResponseEntity<Map<String,Object>> getInfo(HttpServletRequest req, @RequestBody UserDTO userDTO){
-        log.info("id : {}, pwd : {}",userDTO.getUserId(),userDTO.getPassword());
+        log.info("id : {}, pwd : {}",userDTO.getUid(),userDTO.getPassword());
         Map<String,Object> resultMap = new HashMap<>();
         HttpStatus status = null;
         try{

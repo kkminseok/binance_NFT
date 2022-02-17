@@ -11,10 +11,7 @@ import org.springframework.data.redis.core.RedisHash;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Builder
 @RedisHash("coin")
-public class NFTRedis {
-
-
-    private String id;
+public class coinEntity {
     @Id
     private String name;
     private String enabled;
@@ -24,8 +21,7 @@ public class NFTRedis {
     private Float deal_bas_r;
 
 
-    public NFTRedis(String id, String name, String enabled, String postOnly, Float price, Float krw, Float deal_bas_r) {
-        this.id = id;
+    public coinEntity( String name, String enabled, String postOnly, Float price, Float krw, Float deal_bas_r) {
         this.name = name;
         this.enabled = enabled;
         this.postOnly = postOnly;
@@ -34,14 +30,13 @@ public class NFTRedis {
         this.deal_bas_r = deal_bas_r;
     }
 
-    public NFTRedis(DAO dao){
-        this.id = dao.getId();
-        this.name = dao.getName();
-        this.enabled = dao.getEnabled();
-        this.postOnly = dao.getPostOnly();
-        this.price = dao.getPrice();
-        this.krw = dao.getKrw();
-        this.deal_bas_r = dao.getDeal_bas_r();
+    public coinEntity(coinDTO coindto){
+        this.name = coindto.getName();
+        this.enabled = coindto.getEnabled();
+        this.postOnly = coindto.getPostOnly();
+        this.price = coindto.getPrice();
+        this.krw = coindto.getKrw();
+        this.deal_bas_r = coindto.getDeal_bas_r();
     }
 }
 

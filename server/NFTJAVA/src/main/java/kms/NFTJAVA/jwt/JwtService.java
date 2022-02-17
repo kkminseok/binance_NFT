@@ -19,19 +19,21 @@ public class JwtService {
     @Value("${jwt.expmin}")
     private Long expireMin;
 
-    public String create(final UserDTO userDTO){
+    public String createToken(final UserDTO userDTO){
         log.trace("time : {} ",expireMin);
         final JwtBuilder builder = Jwts.builder();
         //JWT TOKEN = Header + Payload + Signagure
         //Header
-        builder.setHeaderParam("kms","JWT");
+        builder.setHeaderParam("typ","JWT");
 
         //Payload
+        //setSubject - token 제목
         builder.setSubject("login token")
                 //expire
                 .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * expireMin))
                 .claim("User",userDTO)
-                .claim("second","담고 싶은 정보");
+                .claim("second","담고 싶은 정보")
+                .setIssuedAt(new Date(System.currentTimeMillis()));
         //signature
         builder.signWith(SignatureAlgorithm.HS256,salt.getBytes());
 
@@ -39,6 +41,17 @@ public class JwtService {
         final String jwt = builder.compact();
         log.debug("make token : {}",jwt);
         return jwt;
+    }
+
+    public String createRefreshToken(){
+        log.trace("refresh time : {}",expireMin);
+        final JwtBuilder builder = Jwts.builder();
+        builder.setExpiration(new Date(System.currentTimeMillis() + 1000 * 600 * expireMin))
+                .setIssuedAt(new Date())
+                .signWith(SignatureAlgorithm.HS256,salt.getBytes());
+        final String refreshjwt = builder.compact();
+        log.debug("refresh token made : {}",refreshjwt);
+        return refreshjwt;
     }
 
     //token check

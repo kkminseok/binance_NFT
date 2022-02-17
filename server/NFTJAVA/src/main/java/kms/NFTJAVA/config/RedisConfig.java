@@ -1,6 +1,6 @@
 package kms.NFTJAVA.config;
 
-import kms.NFTJAVA.DTO.NFTRedis;
+import kms.NFTJAVA.DTO.coinEntity;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -31,7 +31,7 @@ public class RedisConfig {
         RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();
         redisTemplate.setConnectionFactory(redisConnectionFactory());
         redisTemplate.setKeySerializer(new StringRedisSerializer());
-        redisTemplate.setValueSerializer(new Jackson2JsonRedisSerializer<>(NFTRedis.class));
+        redisTemplate.setValueSerializer(new Jackson2JsonRedisSerializer<>(coinEntity.class));
         return redisTemplate;
     }
 }

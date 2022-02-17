@@ -1,14 +1,14 @@
 package kms.NFTJAVA.repository;
 
-import kms.NFTJAVA.DTO.NFTRedis;
+import kms.NFTJAVA.DTO.coinEntity;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface NFTRedisRepo extends CrudRepository<NFTRedis,String> {
+public interface NFTRedisRepo extends CrudRepository<coinEntity,String> {
     @Override
-    Iterable<NFTRedis> findAll();
+    Iterable<coinEntity> findAll();
 
-    NFTRedis findByName(String name);
+    coinEntity findByName(String name);
 
 }

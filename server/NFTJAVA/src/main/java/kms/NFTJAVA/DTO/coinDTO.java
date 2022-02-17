@@ -1,17 +1,15 @@
 package kms.NFTJAVA.DTO;
 
 import lombok.*;
-import org.springframework.data.annotation.Id;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class DAO {
+public class coinDTO {
 
     private static long seq = 0L;
-    private String id;
     private String name;
     private String enabled;
     private String postOnly;
@@ -23,8 +21,7 @@ public class DAO {
         this.krw = this.deal_bas_r * this.price;
     }
 
-    public DAO(final NFTRedis entity){
-        this.id = entity.getId();
+    public coinDTO(final coinEntity entity){
         this.name = entity.getName();
         this.enabled = entity.getEnabled();
         this.postOnly = entity.getPostOnly();
@@ -32,14 +29,13 @@ public class DAO {
         this.deal_bas_r = entity.getDeal_bas_r();
     }
 
-    public static NFTRedis toEntity(final DAO dao){
-        return NFTRedis.builder()
-                .id(dao.getId())
-                .name(dao.getName())
-                .enabled(dao.getEnabled())
-                .postOnly(dao.getPostOnly())
-                .price(dao.getPrice())
-                .deal_bas_r(dao.getDeal_bas_r())
+    public static coinEntity toEntity(final coinDTO coindto){
+        return coinEntity.builder()
+                .name(coindto.getName())
+                .enabled(coindto.getEnabled())
+                .postOnly(coindto.getPostOnly())
+                .price(coindto.getPrice())
+                .deal_bas_r(coindto.getDeal_bas_r())
                 .build();
     }
 
