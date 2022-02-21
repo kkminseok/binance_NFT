@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import java.io.UnsupportedEncodingException;
 import java.util.Date;
 import java.util.Map;
 
@@ -21,18 +22,20 @@ public class JwtService {
 
     public String createToken(final UserDTO userDTO){
         log.trace("time : {} ",expireMin);
+
         final JwtBuilder builder = Jwts.builder();
+        Claims claims = Jwts.claims();
+        claims.put("uid",userDTO.getUid());
         //JWT TOKEN = Header + Payload + Signagure
         //Header
         builder.setHeaderParam("typ","JWT");
 
         //Payload
         //setSubject - token 제목
-        builder.setSubject("login token")
+        builder.setSubject("kms token")
                 //expire
-                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * expireMin))
-                .claim("User",userDTO)
-                .claim("second","담고 싶은 정보")
+                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 10 * expireMin))
+                .setClaims(claims)
                 .setIssuedAt(new Date(System.currentTimeMillis()));
         //signature
         builder.signWith(SignatureAlgorithm.HS256,salt.getBytes());
@@ -62,13 +65,15 @@ public class JwtService {
     }
 
     //token analysis
-    public Map<String,Object> get(final String jwt){
+    public Map<String,Object> get(final String jwt) throws UnsupportedEncodingException {
         Jws<Claims> claims = null;
         try{
             System.out.println("jwt : "+ jwt);
             claims = Jwts.parser().setSigningKey(salt.getBytes()).parseClaimsJws(jwt);
-        }catch(final Exception e){
-            throw new RuntimeException();
+        }catch(ExpiredJwtException e){//token 만료
+            log.warn("token이 만료되었습니다.");
+        }catch (Exception e){
+            log.warn("token get error : {}",e);
         }
 
         log.trace("claims : {}", claims);

@@ -15,7 +15,6 @@ public class UserEntity {
 
 
 
-    private String id;
     @Id
     private String uid;
     private String uname;
@@ -23,8 +22,7 @@ public class UserEntity {
     private String refreshToken;
 
 
-    public UserEntity(String id,String uid,String uname, String password, String refreshToken) {
-        this.id = id;
+    public UserEntity(String uid,String uname, String password, String refreshToken) {
         this.uid = uid;
         this.uname = uname;
         this.password = password;

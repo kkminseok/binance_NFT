@@ -59,5 +59,8 @@
 
 1. <https://minu0807.tistory.com/82> - vue의 rules에 대하여
 2. <https://vuetifyjs.com/> - vuefity사이트
-3. 
+3. <https://deockstory.tistory.com/26> - vue, boot 연동과정
+4. <https://galid1.tistory.com/755> - token관련
+
+
 

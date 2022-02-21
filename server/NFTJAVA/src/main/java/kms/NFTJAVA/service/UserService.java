@@ -21,21 +21,10 @@ public class UserService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public UserDTO sigin(UserEntity userEntity){
-        //디비에 넣은 값이랑 같은지 확인..
-        System.out.println("find user id : " + userEntity.getUid() + userEntity.getPassword());
-        Optional<UserEntity> user = userRedisRepo.findById(userEntity.getUid());
+    public UserDTO signin(UserEntity userEntity){
 
-        //암호화로 받아야하는 코드로 바꿔야함.
-        if(!user.isPresent()){
-            System.out.println("sibal");
-            return null;
-        }
-        log.info("user Entity pw : {} , getuser pw : {}",userEntity.getPassword(),user.get().getPassword());
-        if(user.get().getPassword().equals(userEntity.getPassword())) {
-            log.info("비밀번호 같아용.");
-            return UserDTO.builder().uid(user.get().getUid()).password(user.get().getPassword()).build();
-        }
+        log.info("user Entity pw : {}",userEntity.getPassword());
+
         return null;
     }
 
@@ -48,6 +37,17 @@ public class UserService {
         userDTO.setPassword(encodedPassword);
         UserEntity user  = new UserEntity(userDTO);
         return userRedisRepo.save(user);
+    }
+
+    public UserEntity crdentials(UserDTO userDTO){
+        Optional<UserEntity> user = userRedisRepo.findById(userDTO.getUid());
+
+        if(user.isPresent() && passwordEncoder.matches(userDTO.getPassword(), userDTO.getPassword()) && userDTO.getUid().equals(user.get().getUid()) ){
+           //매칭됨.
+            return user.get();
+        }
+
+        return null;
     }
 
 }

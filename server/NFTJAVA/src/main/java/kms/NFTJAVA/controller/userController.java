@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -36,14 +37,13 @@ public class userController {
 
     @PostMapping("/signin")
     public ResponseEntity<Map<String,Object>> signin(@RequestBody UserDTO userDTO, HttpServletResponse res){
+        UserEntity user = userService.crdentials(userDTO);
         Map<String,Object> resultMap = new HashMap<>();
         HttpStatus status = null;
-        //test
-        UserEntity saveduser = userService.userSave(userDTO);
-        //
+
 
         try{
-            UserDTO loginUser = userService.sigin(saveduser);
+            UserDTO loginUser = userService.signin(user);
             log.info("새로 만듦 id : {}, pw : {}",loginUser.getUid(),loginUser.getPassword());
             //success login?
             String token = jwtService.createToken(loginUser);
@@ -60,6 +60,8 @@ public class userController {
             status = HttpStatus.INTERNAL_SERVER_ERROR;
 
         }
+
+
         return new ResponseEntity<Map<String,Object>>(resultMap,status);
     }
 
@@ -81,6 +83,8 @@ public class userController {
             log.error("info fail",e);
             resultMap.put("message",e.getMessage());
             status = HttpStatus.INTERNAL_SERVER_ERROR;
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
         }
         return new ResponseEntity<Map<String,Object>>(resultMap,status);
     }
