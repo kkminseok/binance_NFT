@@ -50,3 +50,11 @@
 1. JAVA 코드 리팩토링
 2. appspec.yml을 수정하여 EC2 디렉토리로 구분하여 배포
 3. git action workflow 2개 분기(java code, python code)로 나누어서 처리하는 방법 찾아보기.
+
+
+# 참고한 사이트(2월18일 추가분)
+
+1. <https://minu0807.tistory.com/82> - vue의 rules에 대하여
+2. <https://vuetifyjs.com/> - vuefity사이트
+3. 
+
