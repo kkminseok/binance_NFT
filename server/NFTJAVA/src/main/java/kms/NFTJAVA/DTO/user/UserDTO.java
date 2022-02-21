@@ -10,6 +10,7 @@ import lombok.*;
 @Builder
 public class UserDTO {
     private String uid;
+    private String uname;
     private String password;
     private String refreshToken;
 

@@ -50,6 +50,9 @@
 1. JAVA 코드 리팩토링
 2. appspec.yml을 수정하여 EC2 디렉토리로 구분하여 배포
 3. git action workflow 2개 분기(java code, python code)로 나누어서 처리하는 방법 찾아보기.
+4. 업비트 api 계좌연동해서 전체 자산 보기
+5. 부동산관련도
+6. 주식 관련도
 
 
 # 참고한 사이트(2월18일 추가분)

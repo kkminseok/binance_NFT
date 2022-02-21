@@ -14,14 +14,19 @@ import org.springframework.data.redis.core.RedisHash;
 public class UserEntity {
 
 
+
+    private String id;
     @Id
     private String uid;
+    private String uname;
     private String password;
     private String refreshToken;
 
 
-    public UserEntity(String uid, String password, String refreshToken) {
+    public UserEntity(String id,String uid,String uname, String password, String refreshToken) {
+        this.id = id;
         this.uid = uid;
+        this.uname = uname;
         this.password = password;
         this.refreshToken = refreshToken;
     }
@@ -29,6 +34,7 @@ public class UserEntity {
 
     public UserEntity(UserDTO userDTO){
         this.uid = userDTO.getUid();
+        this.uname = userDTO.getUname();
         this.password = userDTO.getPassword();
         this.refreshToken = userDTO.getRefreshToken();
     }

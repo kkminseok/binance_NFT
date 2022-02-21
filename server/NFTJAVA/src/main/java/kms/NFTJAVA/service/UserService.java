@@ -2,10 +2,12 @@ package kms.NFTJAVA.service;
 
 import kms.NFTJAVA.DTO.user.UserDTO;
 import kms.NFTJAVA.DTO.user.UserEntity;
+import kms.NFTJAVA.config.WebSecurityConfiguration;
 import kms.NFTJAVA.repository.UserRedisRepo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -16,6 +18,8 @@ import java.util.Optional;
 public class UserService {
 
     private final UserRedisRepo userRedisRepo;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     public UserDTO sigin(UserEntity userEntity){
         //디비에 넣은 값이랑 같은지 확인..
@@ -40,6 +44,8 @@ public class UserService {
     }
 
     public UserEntity userSave(UserDTO userDTO){
+        String encodedPassword = passwordEncoder.encode(userDTO.getPassword());
+        userDTO.setPassword(encodedPassword);
         UserEntity user  = new UserEntity(userDTO);
         return userRedisRepo.save(user);
     }
