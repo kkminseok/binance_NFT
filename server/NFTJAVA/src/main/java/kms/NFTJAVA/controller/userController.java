@@ -1,24 +1,24 @@
 package kms.NFTJAVA.controller;
 
+import kms.NFTJAVA.DTO.Response;
 import kms.NFTJAVA.DTO.user.UserDTO;
 import kms.NFTJAVA.DTO.user.UserEntity;
+import kms.NFTJAVA.config.JwtConfig;
+import kms.NFTJAVA.cookie.CookieUtil;
 import kms.NFTJAVA.jwt.JwtService;
+import kms.NFTJAVA.service.RedisUtil;
 import kms.NFTJAVA.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
-import java.io.UnsupportedEncodingException;
-import java.util.HashMap;
-import java.util.Map;
 
-@Controller
+@RestController
 @RequestMapping("/auth")
 @Slf4j
 public class userController {
@@ -29,42 +29,78 @@ public class userController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private CookieUtil cookieUtil;
+
+    @Autowired
+    private RedisUtil redisUtil;
+
+    @Autowired
+    private JwtConfig jwtConfig;
+
 
     @PostMapping("/signin2")
     public void login(@RequestBody UserDTO userdto, Model model){
         log.info("login user = {} , {}", userdto.getUid(),userdto.getPassword());
     }
 
-    @PostMapping("/signin")
-    public ResponseEntity<Map<String,Object>> signin(@RequestBody UserDTO userDTO, HttpServletResponse res){
-        UserEntity user = userService.crdentials(userDTO);
-        Map<String,Object> resultMap = new HashMap<>();
-        HttpStatus status = null;
 
+    @PostMapping("/signin")
+    public ResponseEntity<?> signin(@RequestBody UserDTO userDTO, HttpServletResponse res){
+
+
+
+        UserEntity user = userService.crdentials(userDTO);
+        if(user == null){
+            log.info("SADASDAS");
+        }
+        //Map<String,Object> resultMap = new HashMap<>();
+        //HttpStatus status = null;
+        UserDTO loginUser = UserDTO.builder()
+                .uid(user.getUid())
+                .refreshToken(user.getRefreshToken())
+                .password(user.getPassword())
+                .uname(user.getUname())
+                .build();
 
         try{
-            UserDTO loginUser = userService.signin(user);
+
             log.info("새로 만듦 id : {}, pw : {}",loginUser.getUid(),loginUser.getPassword());
             //success login?
-            String token = jwtService.createToken(loginUser);
-            String retoken = jwtService.createRefreshToken();
-            res.setHeader("jwt-auth-token",token);
-            res.setHeader("jwt-auth-refresh-token",retoken);
-            resultMap.put("status",true);
-            resultMap.put("data",loginUser);
-            status = HttpStatus.ACCEPTED;
-            System.out.println(resultMap);
+            String token = jwtService.generateToken(loginUser);
+            String retoken = jwtService.generateRefreshToken(loginUser);
+            Cookie accessToken = cookieUtil.createCookie(jwtService.ACCESS_TOKEN_NAME,token);
+            Cookie refreshToken = cookieUtil.createCookie(jwtService.REFRESH_TOKEN_NAME,retoken);
+
+            redisUtil.setDataExpire(retoken,loginUser.getUid(), jwtConfig.getRefreshTokenSecond());
+            res.addCookie(accessToken);
+            res.addCookie(refreshToken);
+            //res.setHeader("jwt-auth-token",token);
+            //res.setHeader("jwt-auth-refresh-token",retoken);
+            //resultMap.put("status",true);
+            //resultMap.put("data",loginUser);
+            //status = HttpStatus.ACCEPTED;
+            //System.out.println(resultMap);
+
+            log.info("res : {} user : {} ",res.getHeaders("accessToken"),loginUser.getUid());
+            return ResponseEntity.ok(loginUser);
         }catch (RuntimeException e){
             log.error("login fail",e);
-            resultMap.put("message", e.getMessage());
-            status = HttpStatus.INTERNAL_SERVER_ERROR;
-
+            //resultMap.put("message", e.getMessage());
+            //status = HttpStatus.INTERNAL_SERVER_ERROR;
+            Response response = Response.builder()
+                    .data(e)
+                    .message(e.getMessage()).build();
+            return ResponseEntity.badRequest().body(response);
         }
 
 
-        return new ResponseEntity<Map<String,Object>>(resultMap,status);
+        //return new ResponseEntity<Map<String,Object>>(resultMap,status);
+
+
     }
 
+    /*
     @PostMapping("/info")
     public ResponseEntity<Map<String,Object>> getInfo(HttpServletRequest req, @RequestBody UserDTO userDTO){
         log.info("id : {}, pwd : {}",userDTO.getUid(),userDTO.getPassword());
@@ -89,12 +125,13 @@ public class userController {
         return new ResponseEntity<Map<String,Object>>(resultMap,status);
     }
 
+     */
+
     @PostMapping("/signup")
-    @ResponseBody
     public String signup(@RequestBody UserDTO userDTO){
-        log.info("signup!! : {}  + {} + {}",userDTO.getUid(),userDTO.getPassword(),userDTO.getUname());
-        userService.userSave(userDTO);
-        return "OK";
+        log.info("signup!!");
+        UserEntity user = userService.userSave(userDTO);
+        return user.getUid();
     }
 
 }

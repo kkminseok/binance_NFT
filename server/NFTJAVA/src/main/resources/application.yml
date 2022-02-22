@@ -10,8 +10,10 @@ spring:
     password:
 
 jwt:
-  expmin: 5
-  salt: MYSALT
+  expmini: 5
+  salt: kmstokenandjybtokenloveyouyayaiwillgonaverandkakao
+  REFRESH_TOKEN_VALIDATION_SECOND: 1500000
+  TOKEN_VALIDATION_SECOND : 5000
 
 
 

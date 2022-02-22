@@ -1,25 +1,95 @@
 package kms.NFTJAVA.jwt;
 
-import io.jsonwebtoken.*;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.security.Keys;
 import kms.NFTJAVA.DTO.user.UserDTO;
+import kms.NFTJAVA.DTO.user.UserEntity;
+import kms.NFTJAVA.config.JwtConfig;
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
+import java.security.Key;
 import java.util.Date;
-import java.util.Map;
 
-@Component
+@Service
 @Slf4j
+@Getter
 public class JwtService {
 
-    @Value("${jwt.salt}")
-    private String salt;
+    @Autowired
+    private JwtConfig jwtConfig;
 
-    @Value("${jwt.expmin}")
-    private Long expireMin;
+    //private long expireMin = 5;
 
+    //public final long TOKEN_VALIDATION_SECOND = 1000L * expireMin;
+    //    public final long REFRESH_TOKEN_VALIDATION_SECOND = 1000L * 60 * 5 * expireMin;
+
+    final static public String ACCESS_TOKEN_NAME = "accessToken";
+    final static public String REFRESH_TOKEN_NAME = "refreshToken";
+
+    private Key getSigningKey(String secretKey) {
+
+        byte[] keyBytes = secretKey.getBytes(StandardCharsets.UTF_8);
+        return Keys.hmacShaKeyFor(keyBytes);
+    }
+
+    public Claims extractAllClaims(String token) throws ExpiredJwtException{
+        return Jwts.parserBuilder()
+                .setSigningKey(getSigningKey(jwtConfig.getSalt()))
+                .build()
+                .parseClaimsJws(token)
+                .getBody();
+    }
+
+    public String getUid(String token){
+        return extractAllClaims(token).get("uid",String.class);
+    }
+
+    public Boolean isTokenExpired(String token){
+        final Date expiration = extractAllClaims(token).getExpiration();
+        //현재시간보다 더 이전이면 true
+        return expiration.before(new Date());
+    }
+
+    public String generateToken(final UserDTO userDTO){
+        log.info("TOKEN VAL : {}",jwtConfig.getTokenSecond());
+        return doGenerateToken(userDTO.getUid(),jwtConfig.getTokenSecond());
+    }
+
+    public String generateRefreshToken(final UserDTO userDTO){
+        log.info("RETOKEN VAL : {}",jwtConfig.getRefreshTokenSecond());
+        return doGenerateToken(userDTO.getUid(),jwtConfig.getRefreshTokenSecond());
+    }
+
+    public String doGenerateToken(String uid, long expireTime){
+        Claims claims = Jwts.claims();
+        claims.put("uid",uid);
+
+        //header를 안 넣어두 되나 확인.
+        String jwt = Jwts.builder()
+                .setClaims(claims)
+                .setIssuedAt(new Date(System.currentTimeMillis()))
+                .setExpiration(new Date(System.currentTimeMillis() + expireTime))
+                .signWith(getSigningKey(jwtConfig.getSalt()), SignatureAlgorithm.HS256)
+                .compact();
+        return jwt;
+    }
+
+    public Boolean validateToken(String token, UserEntity userEntity){
+        final String uid = getUid(token);
+
+        return (uid.equals(userEntity.getUid()) && !isTokenExpired(token));
+    }
+
+
+    /*
     public String createToken(final UserDTO userDTO){
         log.trace("time : {} ",expireMin);
 
@@ -45,6 +115,7 @@ public class JwtService {
         log.debug("make token : {}",jwt);
         return jwt;
     }
+
 
     public String createRefreshToken(){
         log.trace("refresh time : {}",expireMin);
@@ -80,5 +151,7 @@ public class JwtService {
 
         return claims.getBody();
     }
+
+     */
 
 }

@@ -2,7 +2,7 @@ package kms.NFTJAVA.service;
 
 import kms.NFTJAVA.DTO.user.UserDTO;
 import kms.NFTJAVA.DTO.user.UserEntity;
-import kms.NFTJAVA.config.WebSecurityConfiguration;
+import kms.NFTJAVA.jwt.JwtService;
 import kms.NFTJAVA.repository.UserRedisRepo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -15,11 +15,14 @@ import java.util.Optional;
 @Service
 @Slf4j
 @RequiredArgsConstructor
-public class UserService {
+public class UserService{
 
     private final UserRedisRepo userRedisRepo;
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private JwtService jwtService;
 
     public UserDTO signin(UserEntity userEntity){
 
@@ -41,13 +44,25 @@ public class UserService {
 
     public UserEntity crdentials(UserDTO userDTO){
         Optional<UserEntity> user = userRedisRepo.findById(userDTO.getUid());
-
-        if(user.isPresent() && passwordEncoder.matches(userDTO.getPassword(), userDTO.getPassword()) && userDTO.getUid().equals(user.get().getUid()) ){
+        if(user.isPresent() && passwordEncoder.matches(userDTO.getPassword(), user.get().getPassword()) && userDTO.getUid().equals(user.get().getUid()) ){
            //매칭됨.
             return user.get();
         }
 
         return null;
     }
+
+    public UserEntity finduserbyid(String uid){
+        Optional<UserEntity> uiduser = userRedisRepo.findById(uid);
+
+        if(uiduser.isPresent()){
+            return uiduser.get();
+        }
+
+        return null;
+    }
+
+
+
 
 }
