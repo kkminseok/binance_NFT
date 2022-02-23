@@ -19,14 +19,14 @@ public class UserEntity {
     private String uid;
     private String uname;
     private String password;
-    private String refreshToken;
+    private String token;
 
 
-    public UserEntity(String uid,String uname, String password, String refreshToken) {
+    public UserEntity(String uid,String uname, String password, String token) {
         this.uid = uid;
         this.uname = uname;
         this.password = password;
-        this.refreshToken = refreshToken;
+        this.token = token;
     }
 
 
@@ -34,6 +34,6 @@ public class UserEntity {
         this.uid = userDTO.getUid();
         this.uname = userDTO.getUname();
         this.password = userDTO.getPassword();
-        this.refreshToken = userDTO.getRefreshToken();
+        this.token = userDTO.getToken();
     }
 }

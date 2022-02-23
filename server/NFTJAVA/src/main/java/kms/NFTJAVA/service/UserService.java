@@ -42,14 +42,19 @@ public class UserService{
         return userRedisRepo.save(user);
     }
 
-    public UserEntity crdentials(UserDTO userDTO){
+    public int crdentials(UserDTO userDTO){
         Optional<UserEntity> user = userRedisRepo.findById(userDTO.getUid());
-        if(user.isPresent() && passwordEncoder.matches(userDTO.getPassword(), user.get().getPassword()) && userDTO.getUid().equals(user.get().getUid()) ){
-           //매칭됨.
-            return user.get();
-        }
 
-        return null;
+        if(user.isPresent()){
+            if(userDTO.getPassword() == null){
+                return 4003;
+            }
+            if(passwordEncoder.matches(userDTO.getPassword(), user.get().getPassword()) && userDTO.getUid().equals(user.get().getUid())){
+                return 200;
+            }
+            return 4002;
+        }
+        return 4001;
     }
 
     public UserEntity finduserbyid(String uid){
