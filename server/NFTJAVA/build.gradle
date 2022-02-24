@@ -2,6 +2,8 @@ plugins {
 	id 'org.springframework.boot' version '2.6.2'
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 	id 'java'
+	//명령어를 실행 시키도록 해주는 plugin
+
 }
 
 jar{

@@ -24,16 +24,6 @@ public class UserService{
     @Autowired
     private JwtService jwtService;
 
-    public UserDTO signin(UserEntity userEntity){
-
-        log.info("user Entity pw : {}",userEntity.getPassword());
-
-        return null;
-    }
-
-    public String getServerinfo(){
-        return "sign in test";
-    }
 
     public UserEntity userSave(UserDTO userDTO){
         String encodedPassword = passwordEncoder.encode(userDTO.getPassword());
@@ -59,7 +49,6 @@ public class UserService{
 
     public UserEntity finduserbyid(String uid){
         Optional<UserEntity> uiduser = userRedisRepo.findById(uid);
-
         if(uiduser.isPresent()){
             return uiduser.get();
         }

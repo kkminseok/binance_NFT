@@ -97,4 +97,11 @@ public class userController {
         return user.getUid();
     }
 
+    @PostMapping("/checkid")
+    public Boolean checkid(@RequestBody UserDTO userDTO){
+        if(userService.finduserbyid(userDTO.getUid()) == null)
+            return false;
+        return true;
+    }
+
 }
