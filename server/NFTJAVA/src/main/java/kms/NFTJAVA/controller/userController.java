@@ -23,6 +23,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.Collection;
 import java.util.Enumeration;
 
+import static kms.NFTJAVA.config.MyHttpStatus.EMAIL_IS_INVAL;
+
 @RestController
 @RequestMapping("/auth")
 @Slf4j
@@ -103,11 +105,12 @@ public class userController {
         return true;
     }
     @PostMapping("/emailcheck")
-    public Boolean check_email(@RequestBody UserDTO userDTO){
-        if(userService.findemail(userDTO.getEmail()) == false) {
-            return false;
+    public ResponseEntity<?> check_email(@RequestBody UserDTO userDTO){
+        String checknum = userService.findemail(userDTO.getEmail());
+        if(checknum!= "error") {
+            return ResponseEntity.status(HttpStatus.OK).body(checknum);
         }
-        return true;
+        return ResponseEntity.status(EMAIL_IS_INVAL).body("email전송에 실패했습니다.");
     }
 
 }

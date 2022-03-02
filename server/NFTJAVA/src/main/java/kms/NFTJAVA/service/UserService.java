@@ -8,6 +8,7 @@ import kms.NFTJAVA.repository.UserRedisRepo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -61,16 +62,17 @@ public class UserService{
     }
 
 
-    public boolean findemail(String email) {
+    public String findemail(String email) {
         try {
             log.info("이메일 검증 {}", email);
             MailDTO mailDTO = new MailDTO();
             mailDTO.setAddress(email);
-            mailService.sendMail(mailDTO);
-            log.info("메일 보내기 성공!");
-            return true;
+            String result = mailService.sendMail(mailDTO);
+            if(result !="error")
+                return result;
         }catch(Exception e){
-            return false;
+            return "error";
         }
+        return "error";
     }
 }

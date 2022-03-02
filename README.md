@@ -63,6 +63,6 @@
 4. <https://galid1.tistory.com/755> - token관련
 5. <https://velog.io/@ehdrms2034/Spring-%EB%B9%84%EB%B0%80%EB%B2%88%ED%98%B8-%EC%95%94%ED%98%B8%ED%99%94%EC%97%90-%EB%8C%80%ED%95%9C-%EA%B3%A0%EC%B0%B0> - salt암호화, jwt토큰 redis관련
 6. <https://sundries-in-myidea.tistory.com/130> - 비동기로 아이디 중복처리하기 관련
-
+7. <https://bamdule.tistory.com/238> - 이메일 인증
 
 
