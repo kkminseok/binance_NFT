@@ -38,4 +38,5 @@ out/
 
 ###yml###
 /**/*.yml
+!/appspec.yml
 /**/*.xml
