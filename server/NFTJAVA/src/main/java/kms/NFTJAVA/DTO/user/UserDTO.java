@@ -12,6 +12,7 @@ public class UserDTO {
     private String uid;
     private String uname;
     private String password;
+    private String email;
     private String token;
 
 

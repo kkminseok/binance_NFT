@@ -63,12 +63,11 @@ public class userController {
                 .uid(userDTO.getUid())
                 .token(userDTO.getToken())
                 .password(userDTO.getPassword())
+                .email(userDTO.getEmail())
                 .uname(userDTO.getUname())
                 .build();
 
         try{
-
-            log.info("새로 만듦 id : {}, pw : {}",loginUser.getUid(),loginUser.getPassword());
             //success login?
             String token = jwtService.generateToken(loginUser);
             String retoken = jwtService.generateRefreshToken(loginUser);
@@ -101,6 +100,13 @@ public class userController {
     public Boolean checkid(@RequestBody UserDTO userDTO){
         if(userService.finduserbyid(userDTO.getUid()) == null)
             return false;
+        return true;
+    }
+    @PostMapping("/emailcheck")
+    public Boolean check_email(@RequestBody UserDTO userDTO){
+        if(userService.findemail(userDTO.getEmail()) == false) {
+            return false;
+        }
         return true;
     }
 

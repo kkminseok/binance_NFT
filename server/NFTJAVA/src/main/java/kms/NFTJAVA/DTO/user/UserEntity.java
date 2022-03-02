@@ -19,13 +19,15 @@ public class UserEntity {
     private String uid;
     private String uname;
     private String password;
+    private String email;
     private String token;
 
 
-    public UserEntity(String uid,String uname, String password, String token) {
+    public UserEntity(String uid,String uname, String password,String email, String token) {
         this.uid = uid;
         this.uname = uname;
         this.password = password;
+        this.email = email;
         this.token = token;
     }
 
@@ -34,6 +36,7 @@ public class UserEntity {
         this.uid = userDTO.getUid();
         this.uname = userDTO.getUname();
         this.password = userDTO.getPassword();
+        this.email = userDTO.getEmail();
         this.token = userDTO.getToken();
     }
 }

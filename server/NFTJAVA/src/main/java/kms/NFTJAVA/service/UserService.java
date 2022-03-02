@@ -1,5 +1,6 @@
 package kms.NFTJAVA.service;
 
+import kms.NFTJAVA.DTO.Mail.MailDTO;
 import kms.NFTJAVA.DTO.user.UserDTO;
 import kms.NFTJAVA.DTO.user.UserEntity;
 import kms.NFTJAVA.jwt.JwtService;
@@ -23,6 +24,9 @@ public class UserService{
 
     @Autowired
     private JwtService jwtService;
+
+    @Autowired
+    private MailService mailService;
 
 
     public UserEntity userSave(UserDTO userDTO){
@@ -57,6 +61,16 @@ public class UserService{
     }
 
 
-
-
+    public boolean findemail(String email) {
+        try {
+            log.info("이메일 검증 {}", email);
+            MailDTO mailDTO = new MailDTO();
+            mailDTO.setAddress(email);
+            mailService.sendMail(mailDTO);
+            log.info("메일 보내기 성공!");
+            return true;
+        }catch(Exception e){
+            return false;
+        }
+    }
 }
