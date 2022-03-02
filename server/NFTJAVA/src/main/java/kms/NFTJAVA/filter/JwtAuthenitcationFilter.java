@@ -84,6 +84,7 @@ public class JwtAuthenitcationFilter extends OncePerRequestFilter {
 
                     UserDTO userDTO = new UserDTO();
                     userDTO.setUid(refreshUid);
+                    log.info("ADASD");
                     String newToken = jwtService.generateToken(userDTO);
 
                     Cookie newAccessToken = cookieUtil.createCookie(JwtService.ACCESS_TOKEN_NAME,newToken);

@@ -37,9 +37,9 @@ public class MailService {
             mailHelper.setText(mailDTO.getMessage());
 
             log.info("메일 발송 준비완료");
-            //난수 생성
+            log.info("난수 : {}",rand);
 
-            //mailSender.send(mail);
+            mailSender.send(mail);
             return rand;
         } catch(Exception e){
             e.printStackTrace();

@@ -92,9 +92,9 @@ public class userController {
 
     @PostMapping("/signup")
     public String signup(@RequestBody UserDTO userDTO, HttpServletRequest req){
-        log.info("signup!!");
+
         UserEntity user = userService.userSave(userDTO);
-        log.info("{} {} {} {}",user.getPassword(),user.getUid(),user.getUname());
+        //log.info("{} {} {} {}",user.getPassword(),user.getUid(),user.getUname());
         return user.getUid();
     }
 
