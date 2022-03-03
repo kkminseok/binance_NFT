@@ -43,4 +43,3 @@ out/
 
 ###xml###
 /**/*.xml
-!/src/main/resources/mailset.xml
