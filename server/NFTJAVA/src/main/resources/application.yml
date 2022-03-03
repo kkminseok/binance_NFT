@@ -6,7 +6,7 @@ spring:
         max-idle: 10
         min-idle: 2
     port: 6379
-    host: 3.35.44.58
+    host: localhost
     password:
   mail:
     host: smtp.gmail.com
