@@ -11,7 +11,7 @@ import org.springframework.data.redis.core.RedisHash;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Builder
 @RedisHash("coin")
-public class coinEntity {
+public class CoinEntity {
     @Id
     private String name;
     private String enabled;
@@ -21,7 +21,7 @@ public class coinEntity {
     private Float deal_bas_r;
 
 
-    public coinEntity( String name, String enabled, String postOnly, Float price, Float krw, Float deal_bas_r) {
+    public CoinEntity(String name, String enabled, String postOnly, Float price, Float krw, Float deal_bas_r) {
         this.name = name;
         this.enabled = enabled;
         this.postOnly = postOnly;
@@ -30,7 +30,7 @@ public class coinEntity {
         this.deal_bas_r = deal_bas_r;
     }
 
-    public coinEntity(coinDTO coindto){
+    public CoinEntity(coinDTO coindto){
         this.name = coindto.getName();
         this.enabled = coindto.getEnabled();
         this.postOnly = coindto.getPostOnly();

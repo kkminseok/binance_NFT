@@ -17,11 +17,11 @@ public class coinDTO {
     private Float krw;
     private Float deal_bas_r;
 
-    public void calcurate(){
-        this.krw = this.deal_bas_r * this.price;
+    public void calcurate(Float bas_r){
+        this.krw = bas_r * this.price;
     }
 
-    public coinDTO(final coinEntity entity){
+    public coinDTO(final CoinEntity entity){
         this.name = entity.getName();
         this.enabled = entity.getEnabled();
         this.postOnly = entity.getPostOnly();
@@ -29,8 +29,8 @@ public class coinDTO {
         this.deal_bas_r = entity.getDeal_bas_r();
     }
 
-    public static coinEntity toEntity(final coinDTO coindto){
-        return coinEntity.builder()
+    public static CoinEntity toEntity(final coinDTO coindto){
+        return CoinEntity.builder()
                 .name(coindto.getName())
                 .enabled(coindto.getEnabled())
                 .postOnly(coindto.getPostOnly())

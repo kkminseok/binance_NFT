@@ -1,15 +1,16 @@
 package kms.NFTJAVA.service;
 
 import kms.NFTJAVA.DTO.coinDTO;
-import kms.NFTJAVA.DTO.coinEntity;
+import kms.NFTJAVA.DTO.CoinEntity;
 import kms.NFTJAVA.Exception.coinException;
 import kms.NFTJAVA.repository.NFTRedisRepo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -23,27 +24,41 @@ public class CoinService {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     public void setkrw(coinDTO dao){
-        if(dao.getDeal_bas_r() != null)
-            dao.calcurate();
+        if(dao.getDeal_bas_r() != null) {
+            //log.info("deal not null : {}",dao.getDeal_bas_r());
+            dao.calcurate(dao.getDeal_bas_r());
+        }
+        //DB에서 꺼내서 넣음.
+        else{
+            Optional<CoinEntity> coinEntity = redisRepo.findById(dao.getName());
+            if(coinEntity.isPresent() && coinEntity.get().getDeal_bas_r() != null){
+                dao.calcurate(coinEntity.get().getDeal_bas_r());
+            }
+            else{
+                //DB에도 없으면 초기값 1195으로 잡자
+                //log.info("초기값 : 1195");
+                dao.calcurate((float) 1195.1234);
+            }
+        }
     }
 
-    public coinEntity findcoin(String l) {
+    public CoinEntity findcoin(String l) {
 
-        coinEntity byName = redisRepo.findByName(l);
+        CoinEntity byName = redisRepo.findByName(l);
         return byName;
     }
 
     public void savecoin(coinDTO dao) {
         //null값이면 넣지않음.
         if(excep.savecheck(dao)){
-            coinEntity coinEntity = new coinEntity(dao);
+            CoinEntity coinEntity = new CoinEntity(dao);
             redisRepo.save(coinEntity);
             log.info("save complete");
         }
         else
             log.info("{} save non complete because api server down",dao.getName());
     }
-    public Iterable<coinEntity> findallser(){
+    public Iterable<CoinEntity> findallser(){
         return redisRepo.findAll();
     }
 
