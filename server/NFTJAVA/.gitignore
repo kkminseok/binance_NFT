@@ -40,5 +40,7 @@ out/
 /**/*.yml
 !/appspec.yml
 !/src/main/resources/application.yml
-!/src/main/resources/mailset.xml
+
+###xml###
 /**/*.xml
+!/src/main/resources/mailset.xml
