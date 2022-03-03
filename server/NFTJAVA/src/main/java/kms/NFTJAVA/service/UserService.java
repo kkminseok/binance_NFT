@@ -70,6 +70,7 @@ public class UserService{
             String result = mailService.sendMail(mailDTO);
             if(result !="error")
                 return result;
+
         }catch(Exception e){
             return "error";
         }
