@@ -92,24 +92,27 @@ public class userController {
 
     @PostMapping("/signup")
     public String signup(@RequestBody UserDTO userDTO, HttpServletRequest req){
-
+        log.info("signup controller");
         UserEntity user = userService.userSave(userDTO);
         //log.info("{} {} {} {}",user.getPassword(),user.getUid(),user.getUname());
         return user.getUid();
     }
 
     @PostMapping("/checkid")
-    public Boolean checkid(@RequestBody UserDTO userDTO){
-        if(userService.finduserbyid(userDTO.getUid()) == null)
+    public Boolean checkid(@RequestBody String uid){
+        log.info("check id : {}",uid);
+        if(userService.finduserbyid(uid) == null)
             return false;
         return true;
     }
     @PostMapping("/emailcheck")
-    public ResponseEntity<?> check_email(@RequestBody UserDTO userDTO){
-        String checknum = userService.findemail(userDTO.getEmail());
+    public ResponseEntity<?> check_email(@RequestBody String email){
+        log.info("check email");
+        String checknum = userService.findemail(email);
         if(checknum!= "error") {
             return ResponseEntity.status(HttpStatus.OK).body(checknum);
         }
+        log.error("email check mail");
         return ResponseEntity.status(EMAIL_IS_INVAL).body("email전송에 실패했습니다.");
     }
 
