@@ -47,6 +47,7 @@
 
 # 해야하는것.
 
+0. front code 리팩토링(폴더 구조 변경)
 1. JAVA 코드 리팩토링
 2. appspec.yml을 수정하여 EC2 디렉토리로 구분하여 배포
 3. git action workflow 2개 분기(java code, python code)로 나누어서 처리하는 방법 찾아보기.

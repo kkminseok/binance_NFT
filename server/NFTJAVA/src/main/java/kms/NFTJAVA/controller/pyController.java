@@ -8,9 +8,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.http.HttpRequest;
 import java.util.Iterator;
+import java.util.Map;
 
 @Slf4j
 @RestController
@@ -25,7 +28,7 @@ public class pyController {
         this.nftservice = nftservice;
     }
     @GetMapping("/data")
-    public Iterable<CoinEntity> testview(Model model){
+    public Iterable<CoinEntity> testview(@RequestHeader Map<String,Object> headermap, Model model){
         Iterable<CoinEntity> findallser = nftservice.findallser();
         if(findallser != null){
 //            model.addAttribute("starDTO",nft);
@@ -34,6 +37,7 @@ public class pyController {
                 CoinEntity nftdata = iterator.next();
                 log.info("nftdata : {} + {} + {} ",nftdata.getName() , nftdata.getPrice() , nftdata.getKrw());
             }
+            log.info("요청 ip : {}",headermap);
 
 
             return findallser;
