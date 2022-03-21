@@ -28,7 +28,7 @@ public class pyController {
         this.nftservice = nftservice;
     }
     @GetMapping("/data")
-    public Iterable<CoinEntity> testview(@RequestHeader Map<String,Object> headermap, Model model){
+    public Iterable<CoinEntity> testview(@RequestHeader MultiValueMap<String,String> headermap, Model model){
         Iterable<CoinEntity> findallser = nftservice.findallser();
         if(findallser != null){
 //            model.addAttribute("starDTO",nft);
