@@ -30,7 +30,7 @@
 
 - 크롤링 : python(Selenium, beautifulsoup, webdriver)
 - 서버통신 : python(Requests), Spring + boot, vue.js
-- 화면 : vue.js(vuefity)
+- 화면 : vue.js(vuefity) 2version
 - 인프라 : aws EC2(micro.t2)
 - 자동화배포 : github action, aws codeDeploy
 - DB : Redis
@@ -66,4 +66,8 @@
 6. <https://sundries-in-myidea.tistory.com/130> - 비동기로 아이디 중복처리하기 관련
 7. <https://bamdule.tistory.com/238> - 이메일 인증
 
+# 아쉬운 점.
+
+0. 참고용 서적을 vue3버전을 사서, vue 3버전으로 못한점. 추후 vue3 + vite로 프로젝트를 다시 진행하고 싶음. 다시 만들거나.
+1. 
 
