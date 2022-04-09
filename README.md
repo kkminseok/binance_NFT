@@ -30,7 +30,7 @@
 
 - 크롤링 : python(Selenium, beautifulsoup, webdriver)
 - 서버통신 : python(Requests), Spring + boot, vue.js
-- 화면 : vue.js(vuefity) 2version
+- 화면 : vue.js(vuefity,vue-router,vuex) 2version
 - 인프라 : aws EC2(micro.t2)
 - 자동화배포 : github action, aws codeDeploy
 - DB : Redis
@@ -56,7 +56,7 @@
 6. 주식 관련도
 
 
-# 참고한 사이트(2월18일 추가분)
+# 참고한 사이트(계속 추가)
 
 1. <https://minu0807.tistory.com/82> - vue의 rules에 대하여
 2. <https://vuetifyjs.com/> - vuefity사이트
@@ -65,6 +65,8 @@
 5. <https://velog.io/@ehdrms2034/Spring-%EB%B9%84%EB%B0%80%EB%B2%88%ED%98%B8-%EC%95%94%ED%98%B8%ED%99%94%EC%97%90-%EB%8C%80%ED%95%9C-%EA%B3%A0%EC%B0%B0> - salt암호화, jwt토큰 redis관련
 6. <https://sundries-in-myidea.tistory.com/130> - 비동기로 아이디 중복처리하기 관련
 7. <https://bamdule.tistory.com/238> - 이메일 인증
+8. <https://github.com/Jo-App/vuetilfy_menu/blob/master/src/components/PageTitle.vue> - 컴포넌트 나누기(메뉴, 타이틀)
+9. <https://ko.javascript.info/import-export> - js의 import개념({}와 그냥 임포트 차이)
 
 # 아쉬운 점.
 
